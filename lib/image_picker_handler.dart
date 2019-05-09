@@ -34,12 +34,15 @@ class ImagePickerHandler {
     //Cropping image in size 1024x1024 since 1MB == 1024KB
     //Just making a wild guess while cropping
     File croppedFile = await ImageCropper.cropImage(
-      sourcePath: image.path,
-      ratioX: 1.0,
-      ratioY: 1.0,
-      maxWidth: 1024,
-      maxHeight: 1024,
-    );
+        sourcePath: image.path,
+        ratioX: 1.0,
+        ratioY: 1.0,
+        maxWidth: 1024,
+        maxHeight: 1024,
+//        statusBarColor: Colors.pink,
+//        toolbarWidgetColor: Colors.pinkAccent,
+//        toolbarColor: Colors.pinkAccent,
+        toolbarTitle: 'Edit your Profile pic');
     _listener.userImage(croppedFile);
   }
 
