@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_image_crop/image_picker_handler.dart';
+import 'package:flutter_image_crop/arrangement_one/image_picker_handler.dart';
 
 class Home extends StatefulWidget {
   Home({Key key, this.title}) : super(key: key);

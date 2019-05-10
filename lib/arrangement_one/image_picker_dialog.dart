@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_image_crop/image_picker_handler.dart';
+import 'package:flutter_image_crop/arrangement_one/image_picker_handler.dart';
 
 class ImagePickerDialog extends StatelessWidget {
   ImagePickerHandler _listener;
@@ -14,14 +14,14 @@ class ImagePickerDialog extends StatelessWidget {
   Animation<Offset> _drawerDetailsPosition;
 
   void initState() {
-    _drawerContentsOpacity = new CurvedAnimation(
-      parent: new ReverseAnimation(_controller),
+    _drawerContentsOpacity = CurvedAnimation(
+      parent: ReverseAnimation(_controller),
       curve: Curves.fastOutSlowIn,
     );
-    _drawerDetailsPosition = new Tween<Offset>(
+    _drawerDetailsPosition = Tween<Offset>(
       begin: const Offset(0.0, 1.0),
       end: Offset.zero,
-    ).animate(new CurvedAnimation(
+    ).animate(CurvedAnimation(
       parent: _controller,
       curve: Curves.fastOutSlowIn,
     ));
@@ -37,14 +37,14 @@ class ImagePickerDialog extends StatelessWidget {
     showDialog(
       context: context,
       barrierDismissible: true,
-      builder: (BuildContext context) => new FadeTransition(
+      builder: (BuildContext context) => FadeTransition(
             opacity:
                 Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
               parent: _controller,
               curve: Curves.fastOutSlowIn,
             )),
-            child: new FadeTransition(
-              opacity: new ReverseAnimation(_drawerContentsOpacity),
+            child: FadeTransition(
+              opacity: ReverseAnimation(_drawerContentsOpacity),
               child: this,
             ),
           ),
@@ -56,8 +56,8 @@ class ImagePickerDialog extends StatelessWidget {
   }
 
   startTime() async {
-    var _duration = new Duration(milliseconds: 200);
-    return new Timer(_duration, navigationPage);
+    var _duration = Duration(milliseconds: 10000);
+    return Timer(_duration, navigationPage);
   }
 
   void navigationPage() {
@@ -78,7 +78,7 @@ class ImagePickerDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          new GestureDetector(
+          GestureDetector(
             onTap: () => _listener.openCamera(),
             child: roundedButton(
                 "Camera",
@@ -86,7 +86,7 @@ class ImagePickerDialog extends StatelessWidget {
                 const Color(0xFF167F67),
                 const Color(0xFFFFFFFF)),
           ),
-          new GestureDetector(
+          GestureDetector(
             onTap: () => _listener.openGallery(),
             child: roundedButton(
                 "Gallery",
@@ -101,13 +101,13 @@ class ImagePickerDialog extends StatelessWidget {
 
   Widget roundedButton(
       String buttonLabel, EdgeInsets margin, Color bgColor, Color textColor) {
-    var loginBtn = new Container(
+    var loginBtn = Container(
       margin: margin,
       padding: EdgeInsets.all(15.0),
       alignment: FractionalOffset.center,
-      decoration: new BoxDecoration(
+      decoration: BoxDecoration(
         color: bgColor,
-        borderRadius: new BorderRadius.all(const Radius.circular(100.0)),
+        borderRadius: BorderRadius.all(const Radius.circular(100.0)),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: const Color(0xFF696969),
@@ -118,7 +118,7 @@ class ImagePickerDialog extends StatelessWidget {
       ),
       child: Text(
         buttonLabel,
-        style: new TextStyle(
+        style: TextStyle(
             color: textColor, fontSize: 20.0, fontWeight: FontWeight.bold),
       ),
     );
