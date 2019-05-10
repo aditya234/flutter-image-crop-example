@@ -36,8 +36,13 @@ class ImagePickerDialog extends StatelessWidget {
     _controller.forward();
     showDialog(
       context: context,
-      builder: (BuildContext context) => new SlideTransition(
-            position: _drawerDetailsPosition,
+      barrierDismissible: true,
+      builder: (BuildContext context) => new FadeTransition(
+            opacity:
+                Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+              parent: _controller,
+              curve: Curves.fastOutSlowIn,
+            )),
             child: new FadeTransition(
               opacity: new ReverseAnimation(_drawerContentsOpacity),
               child: this,
@@ -67,48 +72,31 @@ class ImagePickerDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     this.context = context;
-    return new Material(
-        type: MaterialType.transparency,
-        child: new Opacity(
-          opacity: 1.0,
-          child: new Container(
-            padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 20.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                new GestureDetector(
-                  onTap: () => _listener.openCamera(),
-                  child: roundedButton(
-                      "Camera",
-                      EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-                      const Color(0xFF167F67),
-                      const Color(0xFFFFFFFF)),
-                ),
-                new GestureDetector(
-                  onTap: () => _listener.openGallery(),
-                  child: roundedButton(
-                      "Gallery",
-                      EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-                      const Color(0xFF167F67),
-                      const Color(0xFFFFFFFF)),
-                ),
-                const SizedBox(height: 15.0),
-                new GestureDetector(
-                  onTap: () => dismissDialog(),
-                  child: new Padding(
-                    padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
-                    child: roundedButton(
-                        "Cancel",
-                        EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-                        const Color(0xFF167F67),
-                        const Color(0xFFFFFFFF)),
-                  ),
-                ),
-              ],
-            ),
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 30.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          new GestureDetector(
+            onTap: () => _listener.openCamera(),
+            child: roundedButton(
+                "Camera",
+                EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                const Color(0xFF167F67),
+                const Color(0xFFFFFFFF)),
           ),
-        ));
+          new GestureDetector(
+            onTap: () => _listener.openGallery(),
+            child: roundedButton(
+                "Gallery",
+                EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                const Color(0xFF167F67),
+                const Color(0xFFFFFFFF)),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget roundedButton(
